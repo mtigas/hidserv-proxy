@@ -16,9 +16,11 @@ The extra [Nginx http subs module](http://wiki.nginx.org/HttpSubsModule) is used
 
 ## Developing
 
+Clone this repo.
+
 Edit `install_files/ansible-base/prod-specific.yml` and change `proxy_pass`, `proxy_domain_host`, and `proxy_replace_domain` as you desire.
 
-Now, assuming [Ansible](http://www.ansible.com/home) (`brew install ansible`), [Virtualbox](https://www.virtualbox.org/wiki/Downloads), and [Vagrant](https://www.vagrantup.com/) are installed (+ the Vagrant hostmanager plugin: `vagrant plugin install vagrant-hostmanager`), you can run the server.
+Now, assuming [Ansible](http://www.ansible.com/home) (`brew install ansible`), [Virtualbox](https://www.virtualbox.org/wiki/Downloads), and [Vagrant](https://www.vagrantup.com/) are installed (+ the Vagrant hostmanager plugin: `vagrant plugin install vagrant-hostmanager`), you can run the server by doing this in the repo root directory:.
 
 ```
 vagrant up
@@ -29,7 +31,9 @@ Once the server is up, you can get the hidden service's address:
 ```
 cat install_files/ansible-base/hostname-ths-proxy
 ```
-...and test it by using Tor Browser Bundle. (You may have to wait a minute or two for a reboot to complete after the first time the server is brought up.) It should load `http://www.example.com` or whatever you set it to proxy to.
+...and test it by loading the URL in [Tor Browser Bundle](https://www.torproject.org/download/download-easy.html.en). (The first time you bring up the server, you may have to wait a minute or two for the server to come up from reboot.)
+
+It should load the contents of `http://www.example.com` or whatever you set it to proxy to.
 
 ## to-do
 
