@@ -17,7 +17,6 @@
     url: "{{ nginx_download_url }}"
     dest: "{{ nginx_build_dir }}"
     sha256sum: "{{ nginx_download_checksum }}"
-  when: not nginx_download.stat.exists and nginx_download.stat.md5 == "{{ nginx_download_md5 }}"
 
 - name: extract nginx archive to /tmp
   command: tar -xvf {{ nginx_archive }} -C /tmp
@@ -26,12 +25,11 @@
   stat: path="{{ nginx_subs_module_archive }}" get_md5=yes
   register: nginx_subs_module_download
 
--name: download nginx subs module
+- name: download nginx subs module
   get_url:
     url: "{{ nginx_subs_module_url }}"
     dest: "{{ nginx_subs_module_archive }}"
     sha256sum: "{{ nginx_subs_module_checksum }}"
-  when: not nginx_subs_module_download.stat.exists and nginx_subs_module_download.stat.md5 == "{{ nginx_subs_module_md5 }}"
 
 - name: extract nginx subs module archive to /tmp
   command: tar -xvf {{ nginx_subs_module_archive }} -C /tmp
@@ -51,3 +49,5 @@
 - name: add nginx config
   copy: src=nginx.conf dest=/usr/local/conf/nginx.conf owner=root mode=0644
 
+- name: restart nginx
+  command: initctl nginx restart
