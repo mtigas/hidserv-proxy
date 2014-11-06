@@ -50,4 +50,4 @@
   copy: src=nginx.conf dest=/usr/local/conf/nginx.conf owner=root mode=0644
 
 - name: restart nginx
-  command: initctl nginx restart
+  command: initctl start nginx
