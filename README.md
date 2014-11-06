@@ -4,9 +4,11 @@
 
 This forks the [SecureDrop repo](https://github.com/freedomofpress/securedrop/), utilizing it's base system (an [Ansible](http://www.ansible.com/home)-configured Ubuntu Linux system, hardened with a [grsec](https://grsecurity.net/) kernel provided by Freedom of the Press Foundation).
 
-Instead of installing the SecureDrop application, this bootstraps a [Tor Hidden Service](https://www.torproject.org/docs/hidden-services.html.en), using Nginx (compiled with the [http subs module](http://wiki.nginx.org/HttpSubsModule)) to proxy to a normal website.
+Provides a [Tor Hidden Service](https://www.torproject.org/docs/hidden-services.html.en), using Nginx (compiled with the [http subs module](http://wiki.nginx.org/HttpSubsModule)) to proxy to a normal website.
 
-For news organizations and other website operators, this should provide an easy way to provide a well-configured Hidden Service route to the website.
+For news organizations and other website operators, this should provide an easy way to provide a well-configured Hidden Service route to a pre-existing website.
+
+---
 
 As with SecureDrop, the machine that this service is deployed on should physically reside within your office. The oft-used method of deploying a hidden service within the same machine as the actual website means that all Tor-inbound traffic appears to come from `localhost` to the "normal" webserver -- allowing hidden service traffic to be separated from normal traffic. Deploying this service in-house allows the traffic to be mixed in somewhat with those of staff members visiting the website.
 
@@ -22,11 +24,12 @@ Now, assuming [Ansible](http://www.ansible.com/home) (`brew install ansible`), [
 vagrant up
 ```
 
-Once the server is up, you can get the hidden service's address and test it -- it should load `http://www.example.com` or whatever you set it to proxy to.
+Once the server is up, you can get the hidden service's address:
 
 ```
 cat install_files/ansible-base/hostname-ths-proxy
 ```
+...and test it by using Tor Browser Bundle. (You may have to wait a minute or two for a reboot to complete after the first time the server is brought up.) It should load `http://www.example.com` or whatever you set it to proxy to.
 
 ## to-do
 
