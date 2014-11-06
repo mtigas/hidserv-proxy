@@ -1,12 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Added snap.rb file holds the digital ocean api token values
-# so we do not accidently check them into git
-
-require_relative 'snap.rb'
-include MyVars
-
 Vagrant.configure("2") do |config|
 
   # Requires vagrant plugin vagrant-hostmanger to control the /etc/host entries
