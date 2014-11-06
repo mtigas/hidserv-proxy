@@ -10,9 +10,9 @@ For news organizations and other website operators, this should provide an easy 
 
 ---
 
-As with SecureDrop, the machine that this service is deployed on should physically reside within your office. The oft-used method of deploying a hidden service within the same machine as the actual website means that all Tor-inbound traffic appears to come from `localhost` to the "normal" webserver -- allowing hidden service traffic to be separated from normal traffic. Deploying this service in-house allows the traffic to be mixed in somewhat with those of staff members visiting the website.
+As with SecureDrop, the machine that this service is deployed on should physically reside within your office. The oft-used method of deploying a hidden service within the same machine as the actual website means that all Tor-inbound traffic appears to come from `localhost` to the "normal" webserver -- allowing hidden service traffic to be separated from normal traffic. Deploying this service in-house allows the traffic to be mixed in somewhat with those of staff members visiting the website. (Caveat: `Referer` header probably allows identifying which users are over the hidden service.)
 
-The extra [Nginx http subs module](http://wiki.nginx.org/HttpSubsModule) is used to rewrite URLs in web pages sent to the browser, so that the browser continues to make requests to the hidden service, rather than the "clear" version of the website. (i.e., URLs starting with "//www.example.com/" would be rewritten to "//ltty7biw4a4q7q6v.onion/" so that images, stylesheets, and scripts would be requested from the hidden service.)
+The extra [Nginx http subs module](http://wiki.nginx.org/HttpSubsModule) is used to rewrite URLs in web pages sent to the browser, so that the browser continues to make requests to the hidden service, rather than the "clear" version of the website (still over Tor). (i.e., URLs starting with "//www.example.com/" would be rewritten to "//ltty7biw4a4q7q6v.onion/" so that images, stylesheets, and scripts would be requested from the hidden service.)
 
 ## Developing
 
