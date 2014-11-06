@@ -1,4 +1,2 @@
 ---
-- include: securedrop-development.yml
-- include: securedrop-staging.yml
-- include: securedrop-prod.yml
+- include: torproxy-prod.yml

@@ -1,4 +1,7 @@
 ---
+- name: ensure haveged is installed
+  apt: pkg="haveged" state=latest
+
 - name: increase haveged's low entropy watermark to minimize "flag for reply" flow
   lineinfile:
     dest: /etc/default/haveged

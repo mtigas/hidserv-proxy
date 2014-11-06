@@ -6,7 +6,6 @@ tor_wait_for_hidden_services: yes
 tor_hidden_services_parent_dir: "/var/lib/tor/services"
 tor_user: debian-tor
 tor_DataDirectory: /var/lib/tor
-securedrop_tor_user: "debian-tor"
 
 disabled_kernel_modules:
   - bluetooth
@@ -58,17 +57,21 @@ grub_pax:
 
 grsec_package: securedrop-grsec
 
-### Used by the build-ossec-deb-pkg roles ###
-build_ossec_deb_pkg_dependencies:
-  - inotify-tools
+### Used by the build-nginx role ###
+nginx_build_dependencies:
+  - libpcre3-dev
   - libssl-dev
   - make
-  - tar
-  - unzip
-ossec_group: "ossec"
-ossec_download_url: "http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz"
-ossec_download_checksum: "03c073761aa484fe21a9fcc0ea318ba132ff2466c64360408046a4b8e527b529"
-ossec_download_md5: "c2ffd25180f760e366ab16eeb82ae382"
-ossec_version: "ossec-hids-2.8.1"
-ossec_archive: "{{ securedrop_repo }}/{{ ossec_version }}.tar.gz"
-ossec_deb_path: "{{ securedrop_repo }}"
+torproxy_dir: "/var/torproxy"
+nginx_build_dir: "/var/torproxy/nginx"
+nginx_download_url: "http://nginx.org/download/nginx-1.6.2.tar.gz"
+nginx_download_checksum: "b5608c2959d3e7ad09b20fc8f9e5bd4bc87b3bc8ba5936a513c04ed8f1391a18"
+nginx_download_md5: "d1b55031ae6e4bce37f8776b94d8b930"
+nginx_version: "nginx-1.6.2"
+nginx_archive: "{{ nginx_build_dir }}/{{ nginx_version }}.tar.gz"
+
+nginx_subs_module_url: "https://github.com/yaoweibin/ngx_http_substitutions_filter_module/archive/v0.6.4.tar.gz"
+nginx_subs_module_archive: "{{ nginx_build_dir }}/subs-module.tar.gz"
+nginx_subs_module_checksum: "ed4ddbcf0c434f4a1e97b61251a63ace759792764bd5cb79ff20efe348db8db3"
+nginx_subs_module_md5: "bc4482c8f9a10a59d14e46693b87e00c"
+nginx_subs_module_dir: "{{ nginx_build_dir }}/ngx_http_substitutions_filter_module-0.6.4"

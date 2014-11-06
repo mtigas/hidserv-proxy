@@ -1,0 +1,55 @@
+---
+- hosts: [ 'app' ]
+
+  vars_files:
+    - group_vars/torproxy.yml
+    - prod-specific.yml
+
+  roles:
+    - install_fpf_repo
+    - common
+
+  sudo: yes
+
+
+- hosts: [ 'app' ]
+
+  vars_files:
+   - group_vars/torproxy.yml
+   - host_vars/app.yml
+   - prod-specific.yml
+
+  vars:
+
+  roles:
+    - { role: validate, tags: [ 'validate' ] }
+    - common-app
+    - app
+
+  sudo: yes
+
+
+  # This section will put the ssh and iptables rules in place
+  # It will then add any staging exemptions required
+  # at the end of each host section is when the handlers are run.
+  # So iptables will not be reloaded until the exemptions are applied
+  # for production the last task is apply iptables. This will break their
+  # connection. After that point the admin will to proxy traffic over tor.
+- hosts: [ 'app' ]
+
+  vars_files:
+    - group_vars/torproxy.yml
+    - host_vars/app.yml
+    - prod-specific.yml
+
+  roles:
+    - restrict_direct_access_app
+
+  sudo: yes
+
+- hosts: [ 'app' ]
+
+  roles:
+    - reboot
+
+  sudo: yes

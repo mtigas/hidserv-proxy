@@ -7,8 +7,8 @@
   shell: iptables-restore < /etc/network/iptables/rules_v4
 
 ## App/securedrop section
-- name: restart apache2
-  service: name=apache2 state=restarted
+- name: restart nginx
+  service: name=nginx state=restarted
 
 - name: reload supervisor
   supervisorctl:

@@ -1,16 +1,5 @@
 ---
-  # Repo and tor are installed in common role
-- include: create_app_dirs.yml
-
-- include: app_install_fpf_deb_pkgs.yml
-  tags: non-development
-
-- include: initialize_securedrop_app.yml
-
-- include: install_and_harden_apache.yml
-  tags: non-development
-
-- include: configure_securedrop_worker.yml
+- include: install_nginx.yml
 
 - include: setup_cron.yml
 
