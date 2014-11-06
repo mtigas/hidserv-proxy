@@ -19,7 +19,7 @@
     sha256sum: "{{ nginx_download_checksum }}"
 
 - name: extract nginx archive to /tmp
-  command: tar -xvf {{ nginx_archive }} -C /tmp
+  command: tar -xvf {{ nginx_archive }} -C {{ nginx_build_dir }}
 
 - name: check nginx subs module download
   stat: path="{{ nginx_subs_module_archive }}" get_md5=yes
@@ -32,16 +32,16 @@
     sha256sum: "{{ nginx_subs_module_checksum }}"
 
 - name: extract nginx subs module archive to /tmp
-  command: tar -xvf {{ nginx_subs_module_archive }} -C /tmp
+  command: tar -xvf {{ nginx_subs_module_archive }} -C {{ nginx_build_dir }}
 
 - name: configure nginx build
-  command: chdir=/tmp/{{ nginx_version }} ./configure --prefix=/usr/local --with-http_ssl_module --with-pcre --with-http_gzip_static_module --with-http_spdy_module --with-http_gunzip_module --with-http_dav_module --add-module={{ nginx_subs_module_dir }}
+  command: chdir={{ nginx_build_dir }}/{{ nginx_version }} ./configure --prefix=/usr/local --with-http_ssl_module --with-pcre --with-http_gzip_static_module --with-http_spdy_module --with-http_gunzip_module --with-http_dav_module --add-module={{ nginx_subs_module_dir }}
 
 - name: build nginx
-  command: chdir=/tmp/{{ nginx_version }} make
+  command: chdir={{ nginx_build_dir }}/{{ nginx_version }} make
 
 - name: install nginx
-  command: chdir=/tmp/{{ nginx_version }} make install
+  command: chdir={{ nginx_build_dir }}/{{ nginx_version }} make install
 
 - name: add nginx service file
   copy: src=nginx-init dest=/etc/init/nginx.conf owner=root mode=0644
