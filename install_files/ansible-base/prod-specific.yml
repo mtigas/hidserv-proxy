@@ -12,8 +12,3 @@ proxy_domain_host: "www.example.com"
 # This will be searched-and-replaced with the .onion domain name in
 # HTTP responses
 proxy_replace_domain: "www.example.com"
-
-monitor_ip: ""
-monitor_hostname: ""
-app_hostname: ""
-app_ip: ""

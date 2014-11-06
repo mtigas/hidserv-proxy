@@ -28,11 +28,6 @@
 -A INPUT -i lo -p tcp --dport 8080 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "Allow tor connection from local loopback to connect to document int"
 -A OUTPUT -o lo -p tcp --sport 8080 -m owner --uid-owner www-data -m state --state ESTABLISHED,RELATED -j ACCEPT -m comment --comment "Restrict the apache user outbound connections"
 
-# For the redis worker allow the application user allow access for locahost to
-# localhost traffic. The redis worker user is the application user.
--A OUTPUT -o lo -s 127.0.0.1 -d 127.0.0.1  -p tcp -m owner --uid-owner www-data -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "for redis worker all application user local loopback user"
--A INPUT -i lo -s 127.0.0.1 -d 127.0.0.1  -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT -m comment --comment "for redis worker all application user local loopback user"
-
 # Block all other traffic by application users
 # Load before generic loopback rules
 -A OUTPUT -m owner --uid-owner www-data -j LOGNDROP -m comment --comment "Drop all other traffic by the securedrop user"
@@ -54,11 +49,6 @@
 # apt rules can't be restricted by destination address because iptables will only resolve FQDNs once at startup
 -A OUTPUT -p tcp --match multiport --dports 80,8080,443 -m owner --uid-owner root -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "apt updates"
 -A INPUT -p tcp --match multiport --sports 80,8080,443 -m state --state ESTABLISHED,RELATED -j ACCEPT -m comment --comment "apt updates"
-
-# OSSEC server-agent rules
-# TODO add owner to OUTPUT rule
--A OUTPUT -d {{ monitor_hostname }} -p udp --dport 1514 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT -m comment --comment "OSSEC server agent"
--A INPUT -s {{ monitor_hostname }} -p udp --sport 1514 -m state --state ESTABLISHED,RELATED -j ACCEPT -m comment --comment "OSSEC server agent"
 
 # Allow generic loopback connections
 -A INPUT -i lo -p all -j ACCEPT -m comment --comment "Allow lo to lo traffic all protocols"

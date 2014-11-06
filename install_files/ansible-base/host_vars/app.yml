@@ -1,11 +1,6 @@
 ---
 #securedop_repo is defined in site-specific.yml config
 
-### Used by the common role ###
-# ssh_users is defined in the site-specific.yml config
-# monitor_ip is defined in the site-specific.yml config
-# monitor_hostname is defined in the site-specific.yml config
-
 ### Used by the app role ###
 
 # Configuring the tor hidden services
