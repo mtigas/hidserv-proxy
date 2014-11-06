@@ -1,6 +1,4 @@
 ---
-- include: app_display_onions.yml
-
 - include: ssh.yml
 
 - include: app_iptables.yml

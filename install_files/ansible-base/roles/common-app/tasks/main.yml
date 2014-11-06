@@ -10,3 +10,5 @@
 - include: install_tor.yml
 
 - include: app_configure_tor_hidden_services.yml
+
+- include: app_display_onions.yml

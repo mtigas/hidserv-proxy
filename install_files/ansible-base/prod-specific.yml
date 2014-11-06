@@ -3,6 +3,16 @@
 ssh_users: ""
 dns_server: "8.8.8.8"
 
+# Where you want the hidden service to actually go. (If it's
+# a website that allows optional HTTPS, then use HTTPS here
+# to secure the link between the proxy box & the real site.)
+proxy_pass: "http://www.example.com"
+# "Host:" header, just repeat the domain name here
+proxy_domain_host: "www.example.com"
+# This will be searched-and-replaced with the .onion domain name in
+# HTTP responses
+proxy_replace_domain: "www.example.com"
+
 monitor_ip: ""
 monitor_hostname: ""
 app_hostname: ""

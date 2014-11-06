@@ -24,6 +24,21 @@
   roles:
     - { role: validate, tags: [ 'validate' ] }
     - common-app
+
+  sudo: yes
+
+
+- hosts: [ 'app' ]
+
+  vars_files:
+   - group_vars/torproxy.yml
+   - host_vars/app.yml
+   - prod-specific.yml
+
+  vars:
+    ths_hostname: "{{ lookup('file', './hostname-ths-proxy') }}"
+
+  roles:
     - app
 
   sudo: yes

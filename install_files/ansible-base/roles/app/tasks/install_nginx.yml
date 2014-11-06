@@ -47,7 +47,7 @@
   copy: src=nginx-init dest=/etc/init/nginx.conf owner=root mode=0644
 
 - name: add nginx config
-  copy: src=nginx.conf dest=/usr/local/conf/nginx.conf owner=root mode=0644
+  template: src=nginx.conf dest=/usr/local/conf/nginx.conf owner=root mode=0644
 
 - name: restart nginx
   command: initctl start nginx
