@@ -33,6 +33,14 @@ And you can get into it the usual Vagrant ways:
 vagrant ssh
 ```
 
+## to-do
+
+* Have ansible set up `nginx.conf` with the actual Tor hidden service hostname
+* Fix http-subs rewrite rules to work more consistently
+* Way to set target domain for service
+* Way to provide tor hidden service private key? (for pre-existing or [generated](https://github.com/Freaken/Shallot) [vanity](https://github.com/lachesis/scallion) .onion names)
+* Multiple hidden services/domains? (i.e.: generate hidden services for  the "www.propublica.org" domain, one for the "projects.propublica.org" domain, etc. without having to launch multiple instances of this)
+
 ## License
 
 [GNU Affero General Public License v3](/LICENSE)
